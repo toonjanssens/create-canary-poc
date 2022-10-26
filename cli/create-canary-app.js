@@ -1,40 +1,46 @@
 #!/usr/bin/env node
 
-const downloader = require('github-download-directory');
+const download = require("download-git-repo");
 
-const { execSync } = require('child_process')
+const { execSync } = require("child_process");
 
-const runCommand = command => {
-    try {
-        execSync(`${command}`, { stdio: 'inherit'});
-    } catch (e) {
-        console.error(e);
-        return false
-    }
+const runCommand = (command) => {
+  try {
+    execSync(`${command}`, { stdio: "inherit" });
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 
-    return true
+  return true;
 };
 
+const repoName = process.argv[2];
 
-const repoName = process.argv[2]
+console.log(`Downloading the template into ${repoName}`);
 
-// console.log(`Cloning the repository with name ${repoName}`)
+download(
+  "toonjanssens/create-canary-poc",
+  `${repoName}/.download`,
+  function (err) {
+    if (err) {
+      console.log(err);
+      process.exit(-1);
+    }
 
-// const checkout = runCommand(`git clone --depth 1 https://github.com/toonjanssens/create-canary-poc.git ${repoName}`);
-// if (!checkout) process.exit(-1);
+    const extractTemplate = runCommand(
+      `mv ${repoName}/.download/template/* ${repoName} && rm -r ${repoName}/.download`
+    );
+    if (!extractTemplate) process.exit(-1);
 
-console.log(`Downloading the template into ${repoName}`)
+    console.log(`Installing dependencies`);
 
+    const installDeps = runCommand(`cd ${repoName} && yarn install`);
+    if (!installDeps) process.exit(-1);
 
-downloader.download('toonjanssens', 'create-canary-poc', 'template').then(console.log, (e) => {
-    console.error(e)
-    process.exit(-1)
-});
-
-// console.log(`Installing dependencies`)
-
-// const installDeps = runCommand(`cd ${repoName} && yarn install`);
-// if (!installDeps) process.exit(-1);
-
-// console.log(`Install your needed plugins and start with the following command`);
-// console.log(`cd ${repoName} && yarn start`)
+    console.log(
+      `Install your needed plugins and start with the following command`
+    );
+    console.log(`cd ${repoName} && yarn start`);
+  }
+);
