@@ -1,5 +1,5 @@
 {
-  "name": "create-canary-poc",
+  "name": "@toonjanssens/create-canary-poc",
   "version": "1.0.0",
   "license": "MIT",
   "bin": "./cli/create-canary-app.js",
@@ -9,5 +9,8 @@
   "scripts": {},
   "dependencies": {
     "download-git-repo": "^3.0.2"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   }
 }
