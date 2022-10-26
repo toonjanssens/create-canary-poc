@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "license": "MIT",
   "bin": "./cli/create-canary-app.js",
+  "repository": "https://github.com/toonjanssens/create-canary-poc.git",
   "files": [
     "./cli"
   ],
