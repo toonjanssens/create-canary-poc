@@ -1,24 +1,13 @@
 {
-  "name": "core",
+  "name": "create-canary-poc",
   "version": "1.0.0",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
   "license": "MIT",
   "bin": "./cli/create-canary-app.js",
-  "devDependencies": {
-    "@types/react": "^18.0.23",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tslib": "^2.4.0",
-    "typescript": "^4.8.4"
-  },
-  "scripts": {
-    "watch": "yarn watch:esm && yarn watch:cjs",
-    "watch:esm": "tsc --watch",
-    "watch:cjs": "tsc --module commonjs --outDir dist/cjs --watch",
-    "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs"
+  "files": [
+    "./cli"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "github-download-directory": "^3.0.0"
   }
 }
